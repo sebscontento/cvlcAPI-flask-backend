@@ -1,0 +1,3 @@
+BUGS 
+
+- if playlist is playing and closed the sound continues playing (i think i solved this)

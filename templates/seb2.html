@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Media Controller</title>
+    <style>
+        /* Basic styling for buttons */
+        button {
+            margin: 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .dark-mode {
+            background-color: #333;
+            color: #fff;
+        }
+
+    </style>
+</head>
+<body>
+    <h1>Sebs Media Controller</h1>
+    
+    <input type="checkbox" id="darkModeSwitch" onchange="toggleDarkMode()">
+    <label for="darkModeSwitch">Dark Mode</label>
+
+
+    <h2>Videos</h2>
+    <select id="videoSelect">
+        {% for video_file in video_files %}
+            <option value="{{ video_file }}">{{ video_file }}</option>
+        {% endfor %}
+    </select>
+    <button onclick="playVideo()">Play</button>
+    <button onclick="stopVideo()">Stop</button>
+    <button onclick="pauseVideo()">Pause</button>
+    <button onclick="resumeVideo()">Resume</button>
+    <button onclick="restartVideo()">Restart</button>
+
+    <h2>Playlists</h2>
+    <button onclick="startPlaylist1()">Play1</button>
+    <button onclick="startPlaylist2()">randomplaylist1</button>
+   
+    <button onclick="stopPlaylist()">stopPlaylist</button>
+    
+    <h2>Pictures</h2>
+    <button onclick="displayPicture()">Display Picture</button>
+    
+    <script>
+        function sendRequest(method, url, data) {
+            return fetch(url, {
+                method: method,
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            });
+        }
+
+        function playVideo() {
+            var videoFolder = "{{ video_folder }}";  // Accessing the video_folder variable passed from Flask
+            var selectedVideo = document.getElementById('videoSelect').value; // Retrieve selected video filename from dropdown
+            var videoPath = videoFolder + '/' + selectedVideo;  // Construct the full path to the selected video file
+            console.log("Video Path:", videoPath);   // Log the constructed video path
+            sendRequest('POST', '/play', {filename: videoPath})
+                .then(response => console.log(response))
+                .catch(error => console.error('Error:', error));
+        }
+        function stopVideo() {
+            sendRequest('POST', '/stop', {})
+                .then(response => console.log(response))
+                .catch(error => console.error('Error:', error));
+        }
+
+        function pauseVideo() {
+            sendRequest('POST', '/pause', {})
+                .then(response => console.log(response))
+                .catch(error => console.error('Error:', error));
+        }
+
+        function resumeVideo() {
+            sendRequest('POST', '/resume', {})
+                .then(response => console.log(response))
+                .catch(error => console.error('Error:', error));
+        }
+
+        function restartVideo() {
+            sendRequest('POST', '/restart', {})
+                .then(response => console.log(response))
+                .catch(error => console.error('Error:', error));
+        }
+
+        function startPlaylist1() {
+            sendRequest('POST', '/playlist/start', {playlist_name: 'play1.sh'})
+                .then(response => console.log(response))
+                .catch(error => console.error('Error:', error));
+        }
+
+        function startPlaylist2() {
+            sendRequest('POST', '/playlist/start', {playlist_name: 'randomplaylist1.sh'})
+                .then(response => console.log(response))
+                .catch(error => console.error('Error:', error));
+        }
+
+        function stopPlaylist() {
+            sendRequest('POST', '/playlist/stop', {})
+                .then(response => console.log(response))
+                .catch(error => console.error('Error:', error));
+        }
+
+        function displayPicture() {
+            window.open('http://localhost:5000/picture?picture_name=AMK-logo.png', '_blank');
+        }
+
+        function toggleDarkMode() {
+            var darkModeSwitch = document.getElementById("darkModeSwitch");
+            if (darkModeSwitch.checked) {
+                document.body.classList.add("dark-mode");
+            } else {
+                document.body.classList.remove("dark-mode");
+            }
+        }
+
+    </script>
+</body>
+</html>
+

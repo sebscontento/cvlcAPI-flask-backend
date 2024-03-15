@@ -1,0 +1,58 @@
+# Creating a systemd Service File
+
+To create a systemd service file for your Python application, follow these steps:
+
+1. Open a terminal and run the following command to edit the service file using nano:
+
+    ```bash
+    sudo nano /etc/systemd/system/app_script.service
+    ```
+
+2. Add the following content to the file:
+
+    ```makefile
+    [Unit]
+    Description=Start My Python Application
+    
+    [Service]
+    ExecStart=/bin/bash /home/seb/dev/artinstallation31maj/flasklogic/start_app.sh
+    WorkingDirectory=/home/seb/dev/artinstallation31maj/flasklogic
+    Restart=always
+    
+    [Install]
+    WantedBy=multi-user.target
+    ```
+
+3. Save and exit the editor.
+
+4. Enable the service using the following command:
+
+    ```bash
+    sudo systemctl enable app_script.service
+    ```
+
+5. Optionally, start the service using the following command:
+
+    ```bash
+    sudo systemctl start app_script.service
+    ```
+
+6. Verify the status of the service to ensure it's active and running:
+
+    ```lua
+    sudo systemctl status app_script.service
+    ```
+
+    This should show that the service is active and running.
+
+7. Optionally, you can reboot your system to ensure that the service starts automatically at boot time:
+
+    ```bash
+    sudo reboot
+    ```
+
+8. After rebooting, verify that the service is still active and running:
+
+    ```lua
+    sudo systemctl status app_script.service
+    ```
