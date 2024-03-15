@@ -7,6 +7,19 @@ This project serves as the backend for a CVLC (Controlled VLC) API. It provides 
 - Allows remote control of VLC media player
 - more features available
 
+## Installation
+
+1. Clone the repository:
+
+    ```
+    git clone <https://github.com/sebscontento/cvlcAPI-flask-backend>
+    ```
+
+2.  - create videos directory and place your videos in the directory
+    - create a playlist directory and place your playlists in the directory
+    - create a pics directory and place your pictures in the directory
+
+
 ##install requirements
 
 pip install -r requirements.txt
