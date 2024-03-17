@@ -20,10 +20,16 @@ This project serves as the backend for a CVLC (Controlled VLC) API. It provides 
     - create a pics directory and place your pictures in the directory
 
 
-##install requirements
+## install requirements
 
 pip install -r requirements.txt
 
+sudo apt update
+sudo apt install vlc
+
+# Start virtualenv
+
+source venv/bin/activate
 
 ### bash command launch app 
 

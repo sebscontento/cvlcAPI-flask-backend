@@ -1,3 +1,5 @@
 BUGS 
 
 - if playlist is playing and closed the sound continues playing (i think i solved this)
+
+- having a hard time getting the config file to rebbt the start_app.sh file
